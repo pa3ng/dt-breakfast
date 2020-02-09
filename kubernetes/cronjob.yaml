@@ -1,0 +1,44 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: dt-breakfast
+spec:
+  schedule: "0 9 * * Sat"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: dt-breakfast
+              image: santo141/dt-breakfast:latest
+              imagePullPolicy: Always
+              volumeMounts:
+                - name: credentials-gmail-api
+                  mountPath: "secret/credentials-gmail-api"
+                  readOnly: true
+                - name: credentials-sheets-api
+                  mountPath: "secret/credentials-sheets-api"
+                  readOnly: true
+                - name: token-gmail-api
+                  mountPath: "secret/token-gmail-api"
+                  readOnly: true
+                - name: token-sheets-api
+                  mountPath: "secret/token-sheets-api"
+                  readOnly: true
+          volumes:
+            - name: credentials-gmail-api
+              secret:
+                secretName: credentials-gmail-api
+            - name: credentials-sheets-api
+              secret:
+                secretName: credentials-sheets-api
+            - name: token-gmail-api
+              secret:
+                secretName: token-gmail-api
+            - name: token-sheets-api
+              secret:
+                secretName: token-sheets-api

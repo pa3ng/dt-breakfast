@@ -17,7 +17,7 @@ import (
 
 // DT breakfast reminder email
 func SendReminderEmail(email string) {
-	b, err := ioutil.ReadFile("credentials-gmail-api.json")
+	b, err := ioutil.ReadFile("secret/credentials-gmail-api/credentials-gmail-api.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
@@ -62,7 +62,7 @@ func getClient(config *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
 	// created automatically when the authorization flow completes for the first
 	// time.
-	tokFile := "token-gmail-api.json"
+	tokFile := "secret/token-gmail-api/token-gmail-api.json"
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
 		tok = getTokenFromWeb(config)
