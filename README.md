@@ -1,3 +1,3 @@
-# ecm-birthdays
+# dt-breakfast
 
-Status: **WIP**
+Remind the bros who's on breakfast duty.
